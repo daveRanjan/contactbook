@@ -1,7 +1,7 @@
 package com.centralway.contactbook.service;
 
-import com.centralway.contactbook.model.UserCredentials;
+import com.centralway.contactbook.model.User;
 
 public interface UserService {
-    String login(UserCredentials credentials);
+    String login(User credentials);
 }
