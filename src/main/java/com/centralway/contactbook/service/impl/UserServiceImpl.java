@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String hashPassword = encoder.encode(user.getPassword());
         user.setPasswordHash(hashPassword);
-        user.setRoles(Arrays.asList(new UserRole(Role.MEMBER)));
+        user.setRoles(Collections.singletonList(new UserRole(Role.MEMBER)));
 
         User savedUser = userRepository.saveAndFlush(user);
 

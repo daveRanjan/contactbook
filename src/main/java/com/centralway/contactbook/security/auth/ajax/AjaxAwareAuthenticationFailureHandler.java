@@ -1,7 +1,7 @@
 package com.centralway.contactbook.security.auth.ajax;
 
-import com.centralway.contactbook.common.ErrorCode;
-import com.centralway.contactbook.common.ErrorResponse;
+import com.centralway.contactbook.security.common.ErrorCode;
+import com.centralway.contactbook.security.common.ErrorResponse;
 import com.centralway.contactbook.security.exceptions.AuthMethodNotSupportedException;
 import com.centralway.contactbook.security.exceptions.JwtExpiredTokenException;
 import com.fasterxml.jackson.databind.ObjectMapper;

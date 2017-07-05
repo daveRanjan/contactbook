@@ -1,29 +1,28 @@
 package com.centralway.contactbook.model;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
+@NoArgsConstructor
 public class UserRole {
-
-    @Id @GeneratedValue
-    private Long id;
 
     @Column(name = "app_user_id")
     protected Long userId;
-    
     @Enumerated(EnumType.STRING)
     @Column(name = "role", insertable=false, updatable=false)
     protected Role role;
-
-    public Role getRole() {
-        return role;
-    }
+    @Id
+    @GeneratedValue
+    private Long id;
 
     public UserRole(Role role) {
         this.role = role;
     }
 
-    public UserRole() {
+    public Role getRole() {
+        return role;
     }
+
 }

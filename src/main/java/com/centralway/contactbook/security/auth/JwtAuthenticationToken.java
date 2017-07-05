@@ -10,8 +10,8 @@ import java.util.Collection;
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     private static final long serialVersionUID = 2877954820905567501L;
 
-    private RawAccessJwtToken rawAccessToken;
-    private UserContext userContext;
+    private transient RawAccessJwtToken rawAccessToken;
+    private transient UserContext userContext;
 
     public JwtAuthenticationToken(RawAccessJwtToken unsafeToken) {
         super(null);

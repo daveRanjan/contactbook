@@ -6,7 +6,6 @@ import com.centralway.contactbook.security.auth.jwt.JwtAuthenticationProvider;
 import com.centralway.contactbook.security.auth.jwt.JwtTokenAuthenticationProcessingFilter;
 import com.centralway.contactbook.security.auth.jwt.SkipPathRequestMatcher;
 import com.centralway.contactbook.security.auth.jwt.extractor.TokenExtractor;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +16,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.Arrays;

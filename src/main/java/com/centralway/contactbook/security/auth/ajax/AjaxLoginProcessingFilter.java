@@ -1,10 +1,8 @@
 package com.centralway.contactbook.security.auth.ajax;
 
-import com.centralway.contactbook.common.WebUtil;
+import com.centralway.contactbook.security.common.WebUtil;
 import com.centralway.contactbook.security.exceptions.AuthMethodNotSupportedException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingFilter {
-    private static Logger logger = LoggerFactory.getLogger(AjaxLoginProcessingFilter.class);
 
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;

@@ -15,13 +15,6 @@ public class RawAccessJwtToken implements JwtToken {
         this.token = token;
     }
 
-    /**
-     * Parses and validates JWT Token signature.
-     * 
-     * @throws BadCredentialsException
-     * @throws JwtExpiredTokenException
-     * 
-     */
     public Jws<Claims> parseClaims(String signingKey) {
         try {
             return Jwts.parser().setSigningKey(signingKey).parseClaimsJws(this.token);

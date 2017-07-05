@@ -1,4 +1,4 @@
-package com.centralway.contactbook.common;
+package com.centralway.contactbook.security.common;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;
