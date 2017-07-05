@@ -1,16 +1,16 @@
 package com.centralway.contactbook.model;
 
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@Data
 public class UserRole {
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", insertable=false, updatable=false)
-    protected Role role;
+    @Enumerated(EnumType.STRING) public Role role;
 
     @Id
     @GeneratedValue

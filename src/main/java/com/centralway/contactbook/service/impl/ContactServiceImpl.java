@@ -5,6 +5,7 @@ import com.centralway.contactbook.model.Entry;
 import com.centralway.contactbook.model.User;
 import com.centralway.contactbook.repository.ContactRepository;
 import com.centralway.contactbook.service.ContactService;
+import com.centralway.contactbook.util.ContactNumberUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +28,15 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Contact updateContact(Contact contact) {
-        Contact existingContact = contactRepository.findByIdAndUserId(contact.getId(), contact
-            .getUser()
-            .getId());
+    public Contact updateContact(Contact contact, Long contactId, Long userId) {
+        Contact existingContact = contactRepository.findByIdAndUserId(contactId, userId);
 
         if (existingContact == null) {
             throw new IllegalArgumentException("Contact not found");
         }
+
+        contact.setId(contactId);
+        contact.setUser(existingContact.getUser());
 
         return contactRepository.saveAndFlush(contact);
     }
@@ -54,6 +56,12 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Long addEntry(Entry entry, Contact contact) {
+        if (!ContactNumberUtil.isValid(entry.getPhone())) {
+            throw new IllegalArgumentException("Invalid phone number provided");
+        } else {
+            entry.setPhone(ContactNumberUtil.format(entry.getPhone()));
+        }
+
         Contact existingContact = contactRepository.findByIdAndUserId(contact.getId(), contact
             .getUser()
             .getId());
@@ -62,14 +70,24 @@ public class ContactServiceImpl implements ContactService {
             throw new IllegalArgumentException("Contact not found");
         }
 
-        contact.getPhones().add(entry.getPhone());
-        return contactRepository.saveAndFlush(contact).getId();
+        existingContact
+            .getPhones()
+            .add(entry.getPhone());
+        return contactRepository
+            .saveAndFlush(existingContact)
+            .getId();
     }
 
     @Override
-    public Contact getContact(Contact contact) {
-        return contactRepository.findByIdAndUserId(contact.getId(), contact
+    public Contact getContact(Contact contact) throws IllegalAccessException {
+        Contact existingContact = contactRepository.findByIdAndUserId(contact.getId(), contact
             .getUser()
             .getId());
+
+        if (existingContact == null) {
+            throw new IllegalAccessException("Contact does not exists or User is not authorized");
+        }
+
+        return existingContact;
     }
 }

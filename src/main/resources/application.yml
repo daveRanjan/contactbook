@@ -1,6 +1,6 @@
 server.port: 9090
 demo.security.jwt:
-  tokenExpirationTime: 20 # Number of minutes
+  tokenExpirationTime: 10080 # Number of minutes
   tokenIssuer: http://localhost
   tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus
 
@@ -11,4 +11,4 @@ spring.datasource:
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create

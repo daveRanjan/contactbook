@@ -1,5 +1,6 @@
 package com.centralway.contactbook.service.impl;
 
+import com.centralway.contactbook.controller.response.RegisterUserResponse;
 import com.centralway.contactbook.model.Role;
 import com.centralway.contactbook.model.User;
 import com.centralway.contactbook.model.UserRole;
@@ -12,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Service
@@ -42,12 +43,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public AccessJwtToken register(User user) {
+    public RegisterUserResponse register(User user) {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String hashPassword = encoder.encode(user.getPassword());
         user.setPasswordHash(hashPassword);
-        user.setRoles(Collections.singletonList(new UserRole(Role.MEMBER)));
+        user.setRoles(Arrays.asList(new UserRole(Role.MEMBER)));
         Optional<User> existingUser = userRepository.findByUserName(user.getUserName());
 
         if (existingUser.isPresent()) {
@@ -56,7 +57,9 @@ public class UserServiceImpl implements UserService {
 
         User savedUser = userRepository.saveAndFlush(user);
 
-        return jwtTokenFactory.createAccessJwtToken(UserContext.create(savedUser));
+        AccessJwtToken token = jwtTokenFactory.createAccessJwtToken(UserContext.create(savedUser));
+
+        return new RegisterUserResponse(savedUser.getUserName(), token.getToken());
     }
 
     @Override

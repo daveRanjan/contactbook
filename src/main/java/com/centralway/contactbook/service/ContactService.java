@@ -15,7 +15,7 @@ public interface ContactService {
 
     Long addEntry(Entry entry, Contact contact);
 
-    Contact getContact(Contact contact);
+    Contact getContact(Contact contact) throws IllegalAccessException;
 
-    Contact updateContact(Contact contact);
+    Contact updateContact(Contact contactDetails, Long contactId, Long userId);
 }
