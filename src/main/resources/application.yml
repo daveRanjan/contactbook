@@ -1,0 +1,16 @@
+server.port: 9090
+spring.profiles: default
+demo.security.jwt:
+  tokenExpirationTime: 20 # Number of minutes
+  refreshTokenExpTime: 60 # Minutes
+  tokenIssuer: http://localhost
+  tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus
+
+spring.datasource:
+  url: "jdbc:mysql://localhost:3306/contactbook"
+  username: "root"
+  password: "root"
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop

@@ -3,8 +3,10 @@ package com.centralway.contactbook.controller;
 import com.centralway.contactbook.model.Contact;
 import com.centralway.contactbook.model.Entry;
 import com.centralway.contactbook.model.User;
+import com.centralway.contactbook.security.model.UserContext;
 import com.centralway.contactbook.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +20,14 @@ public class ContactController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Contact> getAllContacts(){
-        return contactService.getAllContacts(new User());
+        UserContext userContext = (UserContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return contactService.getAllContacts(new User(userContext.getId()));
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public Contact createContact(@RequestBody Contact contact){
+        UserContext userContext = (UserContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        contact.setUser(new User(userContext.getId()));
         return contactService.saveContact(contact);
     }
 
@@ -32,7 +37,7 @@ public class ContactController {
         return contactService.saveContact(contact);
     }
 
-    @RequestMapping(value = "/{contactId}",method = RequestMethod.POST)
+    @RequestMapping(value = "/{contactId}",method = RequestMethod.GET)
     public Contact getContact( @PathVariable Long contactId){
         return contactService.getContact(contactId);
     }

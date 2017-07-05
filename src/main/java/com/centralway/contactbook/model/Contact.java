@@ -1,5 +1,6 @@
 package com.centralway.contactbook.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ public class Contact {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne User user;
+    @ManyToOne @JsonIgnore User user;
 
     private String firstName;
     private String lastName;
