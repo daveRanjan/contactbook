@@ -18,8 +18,9 @@ public class User {
     private String userName;
     private String passwordHash;
     @Transient private String password;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "app_user_id", referencedColumnName = "id")
     private List<UserRole> roles;
 
     public User(Long id) {

@@ -21,14 +21,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login() {
-
-        return "Hello";
+    public AccessJwtToken login(@RequestBody User user) {
+        return userService.login(user);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public AccessJwtToken register(@RequestBody User user) {
         return userService.register(user);
     }
-
 }

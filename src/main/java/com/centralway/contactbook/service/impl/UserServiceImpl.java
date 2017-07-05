@@ -26,8 +26,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public String login(User credentials) {
-        return null;
+    public AccessJwtToken login(User credentials) {
+        Optional<User> user = userRepository.findByUserName(credentials.getUserName());
+
+        if (user.isPresent()) {
+            return jwtTokenFactory.createAccessJwtToken(UserContext.create(user.get()));
+        }
+
+        throw new IllegalArgumentException("Username not valid");
     }
 
     @Override
@@ -42,6 +48,11 @@ public class UserServiceImpl implements UserService {
         String hashPassword = encoder.encode(user.getPassword());
         user.setPasswordHash(hashPassword);
         user.setRoles(Collections.singletonList(new UserRole(Role.MEMBER)));
+        Optional<User> existingUser = userRepository.findByUserName(user.getUserName());
+
+        if (existingUser.isPresent()) {
+            throw new IllegalArgumentException("Username already exists. Please choose a unique username");
+        }
 
         User savedUser = userRepository.saveAndFlush(user);
 

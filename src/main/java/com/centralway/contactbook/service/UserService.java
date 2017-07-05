@@ -6,7 +6,7 @@ import com.centralway.contactbook.security.model.token.AccessJwtToken;
 import java.util.Optional;
 
 public interface UserService {
-    String login(User credentials);
+    AccessJwtToken login(User credentials);
 
     Optional<User> getByUserName(String username);
 
