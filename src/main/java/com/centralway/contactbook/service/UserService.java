@@ -11,4 +11,6 @@ public interface UserService {
     Optional<User> getByUserName(String username);
 
     AccessJwtToken register(User user);
+
+    User update(User user);
 }

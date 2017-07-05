@@ -1,7 +1,5 @@
 package com.centralway.contactbook.util;
 
-import org.springframework.util.StringUtils;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,11 +12,5 @@ public class PhoneNumberUtil {
         if (matcher.matches()) return true;
 
         return false;
-    }
-
-    public static boolean isValidPhoneNo(CharSequence iPhoneNo) {
-        return !StringUtils.isEmpty(iPhoneNo) && .PHONE
-            .matcher(iPhoneNo)
-            .matches();
     }
 }

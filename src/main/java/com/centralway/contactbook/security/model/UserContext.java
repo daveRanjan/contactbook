@@ -37,4 +37,11 @@ public class UserContext {
             .collect(Collectors.toList());
         return new UserContext(user.getId(), user.getUserName(), authorities);
     }
+
+    public User getUser() {
+        User user = new User();
+        user.setId(this.id);
+        user.setUserName(this.username);
+        return user;
+    }
 }

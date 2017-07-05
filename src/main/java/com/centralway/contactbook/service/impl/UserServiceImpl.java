@@ -58,4 +58,9 @@ public class UserServiceImpl implements UserService {
 
         return jwtTokenFactory.createAccessJwtToken(UserContext.create(savedUser));
     }
+
+    @Override
+    public User update(User user) {
+        return userRepository.saveAndFlush(user);
+    }
 }

@@ -27,19 +27,49 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public void deleteContact(Long contactId) {
-        contactRepository.delete(contactId);
+    public Contact updateContact(Contact contact) {
+        Contact existingContact = contactRepository.findByIdAndUserId(contact.getId(), contact
+            .getUser()
+            .getId());
+
+        if (existingContact == null) {
+            throw new IllegalArgumentException("Contact not found");
+        }
+
+        return contactRepository.saveAndFlush(contact);
     }
 
     @Override
-    public Long addEntry(Long contactId, Entry entry) {
-        Contact contact = contactRepository.findOne(contactId);
+    public void deleteContact(Contact contact) {
+        Contact existingContact = contactRepository.findByIdAndUserId(contact.getId(), contact
+            .getUser()
+            .getId());
+
+        if (existingContact == null) {
+            throw new IllegalArgumentException("Contact not found");
+        }
+
+        contactRepository.delete(contact);
+    }
+
+    @Override
+    public Long addEntry(Entry entry, Contact contact) {
+        Contact existingContact = contactRepository.findByIdAndUserId(contact.getId(), contact
+            .getUser()
+            .getId());
+
+        if (existingContact == null) {
+            throw new IllegalArgumentException("Contact not found");
+        }
+
         contact.getPhones().add(entry.getPhone());
         return contactRepository.saveAndFlush(contact).getId();
     }
 
     @Override
-    public Contact getContact(Long contactId) {
-        return contactRepository.findOne(contactId);
+    public Contact getContact(Contact contact) {
+        return contactRepository.findByIdAndUserId(contact.getId(), contact
+            .getUser()
+            .getId());
     }
 }

@@ -2,7 +2,6 @@ package com.centralway.contactbook.controller;
 
 import com.centralway.contactbook.model.Contact;
 import com.centralway.contactbook.model.Entry;
-import com.centralway.contactbook.model.User;
 import com.centralway.contactbook.security.model.UserContext;
 import com.centralway.contactbook.service.ContactService;
 import com.centralway.contactbook.util.PhoneNumberUtil;
@@ -22,30 +21,29 @@ public class ContactController {
     @RequestMapping(method = RequestMethod.GET)
     public List<Contact> getAllContacts(){
         UserContext userContext = (UserContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return contactService.getAllContacts(new User(userContext.getId()));
+        return contactService.getAllContacts(userContext.getUser());
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public Contact createContact(@RequestBody Contact contact){
         UserContext userContext = (UserContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        contact.setUser(new User(userContext.getId()));
+        contact.setUser(userContext.getUser());
         return contactService.saveContact(contact);
     }
 
-    @RequestMapping(value = "/{contactId}",method = RequestMethod.POST)
+    @RequestMapping(value = "/{contactId}", method = RequestMethod.PUT)
     public Contact updateContact(@RequestBody Contact contact, @PathVariable Long contactId){
-        contact.setId(contactId);
-        return contactService.saveContact(contact);
+        return contactService.updateContact(getContactForId(contactId));
     }
 
     @RequestMapping(value = "/{contactId}",method = RequestMethod.GET)
     public Contact getContact( @PathVariable Long contactId){
-        return contactService.getContact(contactId);
+        return contactService.getContact(getContactForId(contactId));
     }
 
     @RequestMapping(value = "/{contactId}",method = RequestMethod.DELETE)
     public void deleteContact(@PathVariable Long contactId){
-        contactService.deleteContact(contactId);
+        contactService.deleteContact(getContactForId(contactId));
     }
 
     @RequestMapping(value = "/{contactId}/entries", method = RequestMethod.POST)
@@ -55,6 +53,17 @@ public class ContactController {
             throw new IllegalArgumentException("Invalid phone number provided");
         }
 
-        contactService.addEntry(contactId,entry);
+        contactService.addEntry(entry, getContactForId(contactId));
+    }
+
+    private Contact getContactForId(Long contactId) {
+        Contact contact = new Contact();
+        UserContext userContext = (UserContext) SecurityContextHolder
+            .getContext()
+            .getAuthentication()
+            .getPrincipal();
+        contact.setId(contactId);
+        contact.setUser(userContext.getUser());
+        return contact;
     }
 }

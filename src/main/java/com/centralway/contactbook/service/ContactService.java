@@ -11,9 +11,11 @@ public interface ContactService {
 
     Contact saveContact(Contact contact);
 
-    void deleteContact(Long contactId);
+    void deleteContact(Contact contact);
 
-    Long addEntry(Long contactId, Entry entry);
+    Long addEntry(Entry entry, Contact contact);
 
-    Contact getContact(Long contactId);
+    Contact getContact(Contact contact);
+
+    Contact updateContact(Contact contact);
 }
