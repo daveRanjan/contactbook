@@ -24,13 +24,11 @@ A typical contact book which allows functionalities mentioned in BRD :-
     Spring JPA
     Spring Security
     JWT
+### How to run it?
+    mvn spring-boot:run &
     
 ### Docs Please!
 
-A complete list of API docs are available [here](https://documenter.getpostman.com/view/31726/central-way-apis/6fWy4UV)
-.
+A complete list of API docs are available [here](https://documenter.getpostman.com/view/31726/central-way-apis/6fWy4UV).
 
 ![Just A View](/src/main/resources/APIs.PNG)
-
-
-
