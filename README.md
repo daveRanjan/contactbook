@@ -13,13 +13,24 @@ A typical contact book which allows functionalities mentioned in BRD :-
     -  More than one contacts can have same phone numbers
  
  ##### Add-ons
-    - API to search for contact
     - Phone Number Validation and formatting before inserting into database
     - JWT Token for authentication
     - API to GET contact by Id
     - No Duplicacy of phone numbers for same contact
+
+### Tools and Technologies
+    Java 8
+    Spring-Boot
+    Spring JPA
+    Spring Security
+    JWT
     
 ### Docs Please!
 
-A complete list of API docs are available here.
+A complete list of API docs are available [here](https://documenter.getpostman.com/view/31726/central-way-apis/6fWy4UV)
+.
+
+![Just A View](/src/main/resources/APIs.PNG)
+
+
 
