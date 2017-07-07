@@ -1,6 +1,6 @@
 server.port: 9090
 demo.security.jwt:
-  tokenExpirationTime: 10080 # Number of minutes
+  tokenExpirationTime: 40 # Number of minutes
   tokenIssuer: http://localhost
   tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus
 

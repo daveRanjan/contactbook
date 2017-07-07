@@ -1,4 +1,4 @@
-package com.centralway.contactbook.security.auth.ajax;
+package com.centralway.contactbook.security.auth.jwt;
 
 import com.centralway.contactbook.security.common.ErrorCode;
 import com.centralway.contactbook.security.common.ErrorResponse;
@@ -19,12 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class AjaxAwareAuthenticationFailureHandler implements AuthenticationFailureHandler {
-    private final ObjectMapper mapper;
+public class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
+	private final ObjectMapper mapper;
     
     @Autowired
-    public AjaxAwareAuthenticationFailureHandler(ObjectMapper mapper) {
-        this.mapper = mapper;
+	public JWTAuthenticationFailureHandler(ObjectMapper mapper) {
+		this.mapper = mapper;
     }	
     
 	@Override
